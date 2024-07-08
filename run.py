@@ -1,5 +1,6 @@
 import gspread
 from google.oauth2.service_account import Credentials
+from pprint import pprint
 
 SCOPE = [
     "https://www.googleapis.com/auth/spreadsheets",
@@ -25,7 +26,7 @@ def get_sales_data():
         print("Data should be six numbers, separated by commas.")
         print("Example: 10,20,30,40,50,60\n")
 
-        data_str = input("Enter your data here:\n")
+        data_str = input("Enter your data here: ")
 
         sales_data = data_str.split(",")
 
@@ -65,14 +66,6 @@ def update_worksheet(data, worksheet):
     worksheet_to_update.append_row(data)
     print(f"{worksheet} worksheet updated successfully\n")
 
-#def update_sales_worksheet(data):
-    #"""
-    #Update sales worksheet, add new row with data provided
-    #"""
-    #print("Updating sales worksheet")
-    #sales_worksheet = SHEET.worksheet("sales")
-    #sales_worksheet.append_row(data)
-    #print("Sales worksheet updated successfully")
 
 def calculate_surplus_data(sales_row):
     """
@@ -93,22 +86,21 @@ def calculate_surplus_data(sales_row):
 
     return surplus_data
 
+
 def get_last_5_entries_sales():
     """
     Collects columns of data from sales worksheet, collecting
-    the last 5 entries for each sandwich and returns the data 
-    as a list of lists
+    the last 5 entries for each sandwich and returns the data
+    as a list of lists.
     """
     sales = SHEET.worksheet("sales")
-    column = sales.col_values(3)
-    print(column)
 
     columns = []
     for ind in range(1, 7):
         column = sales.col_values(ind)
         columns.append(column[-5:])
-        return columns
 
+    return columns
 
 
 def calculate_stock_data(data):
@@ -142,8 +134,8 @@ def main():
 
 
 print("Welcome to Love Sandwiches Data Automation")
-#main()
+main()
 
-sales_columns = get_last_5_entries_sales()
+
 
 
